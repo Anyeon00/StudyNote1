@@ -1,0 +1,24 @@
+5-1 재귀함수 고급C
+
+recursive function
+
+ex) 1~n까지의 합
+sum(n) = 1 + 2 + 3 + ... + (n-2) + (n-1) + n
+	= {1 + 2 + 3 + ... + (n-2) + (n-1)} + n
+	=sum(n-1) + n
+//n을 남겨놓고 나머지를 이 함수로 표현
+if (n = 1) 이면 1
+else
+
+
+
+*에러 3종류
+syntax error
+link error - 메인메소드에서 함수를 잘못 사용했을때
+runtime error - 작동정지/엉터리결과
+
+*함수 forward declaration 전방선언
+- function heading만 메인프로그램 앞에 써주고 메인프로그램작성후 그 아래에 함수 정의하는 식
+
+5-2 성능평가
+

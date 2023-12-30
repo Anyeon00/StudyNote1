@@ -1,0 +1,16 @@
+고급c	3/21
+
+integer 나누기연산에서 생기는 소수점을 자르는것: truncate
+%: modulo operator
+
+bitwise연산자
+& : bitwise and
+| : bitwise
+^ : exclusive or
+~ : negation(1's complement)
+>>
+<< : shift
+
+
+*data definition 변수선언을 상단에 해주고
+실행내용은 아래에

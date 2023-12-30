@@ -1,0 +1,7 @@
+0323 고급C
+
+반드시 외워야할 용어:
+함수 정의 : function definition
+function heading/function signature(return type, function name, arguments list_formal parameter/formal argument)
+function body(return statement, actual parameter/actual argument)
+integer 변수 양수 최대값

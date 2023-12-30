@@ -1,0 +1,33 @@
+20425 고급C
+
+memory allocation scheme
+어떤 변수를 위한 기억장소가 언제 할당되고 언제 사라지는가(time)
+
+automatic allocation
+: 함수가 호출될때(블록에 들어갈때 
+
+static allocation
+프로그램실행이 시작될때, 종료할때
+
+-전역변수
+-static 지역변수
+
+*전역변수대신 static 지역변수를 사용하면 전역변수처럼 사용하면서도 
+다른 함수에서 해당 변수를 사용할 위험이 없음
+*
+void g(){
+  static int y = 0;
+}
+void foo(){
+  static int y = 0;
+}
+둘다 서로 다른 지역변수, data영역에 함수이름이 변수이름앞에붙어서 저장됨
+
+
+scope
+어떤 변수의 이름이 영향을 미치는 프로그램상의 범위(space)
+
+전역변수 : 함수밖에서 정의된 변수
+
+같은 변수명일 경우 전역변수보다 지역변수가 우선
+

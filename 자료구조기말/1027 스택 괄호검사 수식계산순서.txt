@@ -1,0 +1,24 @@
+자료구조 10 27
+
+스택
+연결된 스택정의
+
+typedef struct StackNode{
+  int item;
+  struct stackNode *link;
+} StactNode;
+
+typedef
+
+
+push연산
+
+pop연산
+
+
+스택을 이용한 괄호 검사
+
+수식계산순서
+중위표기 -> 후위표기
+2+3*4 -> 2+(3*4) -> 2+34* -> 234*+
+

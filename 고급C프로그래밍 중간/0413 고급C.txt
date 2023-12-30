@@ -1,0 +1,9 @@
+floating number
+%3.1f	//3칸에 소수점은 1자리만
+
+랜덤넘버 seeding
+: <stdlib.h>
+srand(time(NULL));		//seeding
+x = rand();
+printf("%d", x);
+

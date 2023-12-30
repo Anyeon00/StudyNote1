@@ -1,0 +1,17 @@
+0404 고급C
+time complexity
+O(n)
+Oder of n
+
+space complexity
+
+
+1. 
+사용자(소스파일.c): extern int getSum(int);
+공급자(소스파일.c) : int getSum(int){}
+
+2. 헤더파일을 사용하는경우
+사용자: #include "header.h"
+공급자 : int getSum(int){}
+header file : 헤더파일 생성후, 전방선언들 적어주기, 
+	관습(#ifndef _~_H, #define _~_H, #endif)

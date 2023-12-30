@@ -1,0 +1,70 @@
+1103 
+
+큐의 연산
+
+큐 구조체정의
+
+공백상태 검출함수
+포화상태 검출함수
+
+삽입함수
+삭제함수
+
+연결된 큐
+
+연결된 큐에서의 삽입
+front = front -> link
+
+삭제함수
+
+
+덱STL (앞뒤로 다 가능 _선입선출후입후출)
+
+덱 구조체 정의
+
+덱 삽입연산
+
+덱 삭제연산
+
+
+
+STL큐
+#include <stdio.h>
+#include <queue>
+using namespace std;
+
+int main(){
+  quere<int> qu;
+
+  qu.push(10);
+  qu.push(20);
+  qu.push(30);
+  qu.push(40);
+  qu.push(50);
+
+  while(!st.empty()){
+    printf("%d\n", qu.front());
+    qu.pop();
+}}
+
+STL deque (사용함수_push등 가 더 많은 vector_배열 이라고 생각해도 됨)
+#include <stdio.h>
+#include <deque>
+using namespace std;
+
+int main(){
+  deque<int> dq;
+
+  dq.push_front(10);
+  dq.push_front(20);
+  dq.push_front(30);
+  dq.push_back(40);
+  dq.push_back(50);
+  dq.push_back(60);
+
+  dq.pop_front();
+  dq.pop_back();
+
+  for(int i = 0; i < dq.size(); i++){
+    printf("%d\n", dq[i]);
+}}

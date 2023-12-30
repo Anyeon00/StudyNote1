@@ -1,0 +1,13 @@
+0321 리눅스
+
+배시셸 명령어
+echo 아무글자 : 똑같이 print함ls
+
+
+단축키
+ctrl+d:
+
+
+*
+/home
+/bin(binary)

@@ -1,0 +1,17 @@
+6주차 플립 고급C
+-1 separate-compilation
+
+헤더파일 사용법
+
+-> 함수 전방선언을 헤더파일에 함(헤더파일로 생성후 확장자명 .h)
+-> 메인파일에서 #include "~.h"
+-> 헤더파일 관습(헤더파일을 여러번 include하는 것을 방지)
+헤더파일이름이 sum.h인경우 
+맨위에
+#ifndef _SUM_H
+#define _SUM_H
+
+마지막에
+#endif
+
+->

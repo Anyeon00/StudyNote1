@@ -1,0 +1,11 @@
+0328 고급C 
+
+automatic allocation 자동할당
+:변수를 함수에 입장할떄 할당, 함수에서 return할때 수거
+
+Stack: LIFO 방식으로 운영되는 collection 객체
+넣을때는 push함수를 이용하고 뺄 때는 pop함수를 이용합니다
+목적 : 과거 역사의 기록
+
+다음시간:
+parameter passing

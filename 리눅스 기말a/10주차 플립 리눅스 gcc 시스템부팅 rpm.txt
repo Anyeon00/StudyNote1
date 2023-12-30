@@ -1,0 +1,143 @@
+10주차 리눅스 gcc
+
+컴파일과정
+source code(file.c)
+-preprocessor 전처리기
+preprocessed source code(file.i)
+-compiler 컴파일러
+assembly source code(file.s)
+-assembler 어셈블러
+object code(file.o)
+-linker 링커
+excutable file
+
+명령어
+gcc -E hello.c //전처리만
+gcc -S hello.c //어셈블리코드로
+gcc -c hello.c //기계어코드로
+-o옵션 // 표준출력으로 안받고 파일로받고 싶을때
+gcc hello.c //그냥하면 바로 실행파일로
+gcc hello.c -o hello // 파일이름을 hello로_지정안하면 a가 default
+
+gcc file1.c file2.c file3.c -o output_file //file1,2,3,을 동시에 컴파일해서 output_file로 생성
+여러개의 파일을 기계어코드로 컴파일 해놓은후 마지막에 한번에 컴파일(링크)하는 방법도 있음
+
+내가만든 파일(명령어)를 실행할때는 path에 설정해주거나 경로명까지 써서 입력해야함
+path설정방법
+PATH=$PATH:~/gcc
+
+----------------------------------------------------------------------------
+직접 실행파일 만들어서 실행해보기(걍 나혼자 해본거)
+vi편집기실행 // vi 파일명
+입력하기 //명령어 i
+코드작성 //c언어코드작성
+저장후 나오기 //esc -> : -> wq
+컴파일 // gcc 파일명 -o 생성할실행파일명
+실행하기 // ./실행파일명
+----------------------------------------------------------------------------
+수업0509 8장
+
+리눅스 시스템 부팅 과정
+전원on - 바이오스(롬에 구워져잇음,부트로더끌어옴) 
+- 부트로더(커널로드시킴,운영체재선택) - 리눅스커널 초기화 - systemd(1번프로세스)
+*커널: OS안에서 중요한것, 메모리에 상주 시켜놓는 핵심부분들
+
+1번프로세스 : init proccess(현재는 systemd)
+
+init 프로세스
+런레벨: 
+0번 종료
+1번 단일 사용자모드(root모드)(안전모드)
+5번 우리가 사용하는 상태
+6번 재시작
+
+systemd서비스(root에서 가능)(요즘은 init대신 sysyemd로 씀)
+명령어:
+systemctl 명령어 //명령어x: 현재동작유닛출력, start: 유닛시작, stop: 정지,restart:재시작
+
+
+init런레벨과 systemct 명령어 아무거나 사용가능
+
+리눅스시스템종료
+shutdown명령어:
+shutdown -h now : 즉시종료
+shutdown -h +2 "System is goingdown in 2 min" : 셧다운한다는 메시지보내고 2분후 종료
+shut down -r +3 : 3분후 재시작
+shutdown -c : 명령취소하기
+shutdown -k 2 : 메세지보내기
+
+가상콘솔실행 ctrl+alt+F1~F6 (6개정도지원)
+ctrl+f3	//런레벨3으로 연결
+로그인
+ctrl+alt+f1	//루트이동
+shutdown -h +3 "bye"	//3분뒤
+
+데몬
+백그라운드에서 동작하면서 특정한 서비스를 제공하는 프로세스
+동작방식
+-독자형
+:개별로동작
+-슈퍼데몬에 의한 동작
+: 백그라운드에서 서비스별로 동작, 시간이 걸리지만 자원을 효율적으로 사용
+inetd 유닉스에서의 슈퍼데몬 이름
+xinetd 페도라에서는 inetd대신 이것 사용
+pstree: 데몬프로세스확인명령어
+
+커널스레드 데몬
+[]에 둘러싸인 프로세스들
+
+GRUB2: 부트로더
+	
+root암호 복구하기:
+
+----------------------------------------------------------------
+9장 RPM 패키지 
+
+이름구성
+audit	2.7.7	1.fc26	x86_64	rpm
+패키지이름,패키지버전,패키지릴리스,아키텍처(64bit운영체재),확장자
+
+명령어
+rpm -qa	//현재 설치된 패키지목록 전체 출력(유일하게사용하는 옵션)
+rpm -qa | grep ~ // ~가 포함된 패키지만 출력
+
+[rpm에서는 rpm -qa만 알면됨]
+rpm은 패키지의존성같은 조건이 너무많아서 잘안쓰고 이를 자동으로 해결하는 dnf를 사용
+
+dnf install 패키지명	//패키지 설치
+dnf upgrade 패키지명	//패키지 업데이트
+dnf info 패키지명		//패키지 정보
+dnf remove 패키지명	//패키지 삭제
+dnf list --all	//이미 설치되었거나 설치가능한 모든 패키지목록 출력
+dnf list --available/upgrades/installed/installed 패키지명
+
+
+
+파일아카이브
+파일을 묶어서 하나로 만든것(라이브러리등)
+//소프트웨어를 개발해 패키지를 만들어 올리고싶을때 사용
+
+명령어:
+tar -f 아카이브파일 파일명 : tar파일대신 표준입력으로 읽음 
+//ar명령어보다 tar를 더 많이씀
+//tar에서는 옵션에 -가 없어서 옵션,기능이 섞여서 사용됨
+c : create 묶는거
+v : 정보출력
+ex) tar cvf ch2.tar ch2 //디렉토리 ch2에있는걸 아카이브 해라 -> ch2.tar로 아카이브됨
+tvf	//내용확인
+xvf	//풀기
+tar uvf test.tar tar	//업데이트(수정) 
+//파일의 수정시간을 touch 명령으로 수정후 업데이트(touch tar/service)
+tar rvf ch2.tar service  //아카이브에 service파일추가
+tar czvf ch2.tar.gz ch2 //생성하면서 gzip로 압축하기, 확장자명.gz로
+//bzip2로 압축은 z대신 j  //압축풀때도 같은 옵션 재사용_z나 j
+//vf는 상시사용이라고 보면 됨
+
+gzip/bzip2 파일명: 파일 압축만하기
+zcat/bzcat 파일명 : 압축파일 내용보기
+gunzip/bunzip2 파일명 : 압축풀기
+
+*tar cvf test.tar .	//현재 디렉토리를 test.tar로 아카이브하기
+
+[gcc로 파일여러개 묶어서 컴파일하고 라이브러리만들기] 11주차영상참고
+

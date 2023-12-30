@@ -1,0 +1,26 @@
+1. 디스크 두개를 만든다 ls /dev에서 디스크이름확인(nvme..)
+2. 각각 partition을 한다 fdisk p
+3. 3개를 type을 바꾼다 fdisk n 8e
+
+4. 각각 PV생성 pvcreate //pvcreate 파티션이름 //pvscan
+5. VG생성 vgcreate //vgcreate VG명 파티션명1 파티션명2...
+6. VG활성화 vgchange -a y //vgchange -a y VG명 //vgdisplay
+7. LV 생성 lvcreate // lvcreate -l PE 수 VG명 -n LV명 //lvscan
+8. LV에 파일시스템 생성 mkfs,mke2fs //mke2fs 장치명, vgdisplay -v grp1
+9. LV마운트 //mkdir /mnt/lvm, mount LV명 /mnt/lvm
+*명령어 외우지 말기 이해하면됨
+
+디스크에서 파티션을 나눔
+각 파티션에서 파일시스템생성
+
+PV:연결된 하드디스크 실제 파티션의 의미
+VG: 여러 PV를 묶어놓은 것을 의미
+LV: VG를 다시 파티션한 것
+PE: PV가 가진 일정한블록
+LE: LV가 가진 일정한블록
+
+*마운트할 파일시스템이 여러개인 경우 /mnt에 하위디렉토리 각각만들어서 mount
+
+시험: 명령어외우지말고 개념이뭐고 어떻게쓰는건지
+
+

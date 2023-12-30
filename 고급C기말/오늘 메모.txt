@@ -1,0 +1,9 @@
+C기출문제 풀어보고 다음시간 질문하기
+
+bubble sort, selection, insertion
+
+quick, merge, heap, shell sort
+
+selection sort: 최댓값을 찾고 맨뒤로 보내고 그거제외하고 최댓값찾고 반복
+
+bubble, insertion 짜보기

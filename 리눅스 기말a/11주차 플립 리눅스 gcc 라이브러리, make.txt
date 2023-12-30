@@ -1,0 +1,91 @@
+11주차 리눅스 gcc 라이브러리, make
+
+라이브러리
+함수(공급자)파일을 미리 컴파일해놓고 나중에 link해서 바로 실행할수있게 만들어놓은 것
+//당연히 gcc할때 함수파일 대신사용
+
+gcc -lg -o mycat mycat.c	//시스템디렉토리에 있는 라이브러리
+// /user/lib/libg.a
+// .a 는 아카이브파일
+
+gcc -lmylib -L. -o mycat mycat.c	//내가 만든 라이브러리
+// -l이름 : 라이브러리이름, lib이름.a 라이브러리 이용(소문자 엘)
+// -L이름 : 라이브러리위치, 라이브러리 파일이 '이름' 디렉토리에 존재(-L안쓰면 시스템에서 찾음)
+
+gcc -c hello.c -I..	//(상위디렉토리일때 예시)
+-I이름 : 헤더파일이 지금 디렉토리가 아닌 다른 디렉토리에 있을때(헤더파일을 모아놓은 디렉토리가 있는경우등)
+
+*#include <>는 시스템디렉토리에 있는거
+#include " " 는 현재디렉토리
+
+라이브러리만들기
+ex1)
+my.h	: 헤더파일
+myfunc.c  : 함수가 정의된 파일(라이브러리에 넣을 파일)
+hello.c : 함수를 사용하는 파일
+
+1. 함수파일로 바이너리코드파일 생성(gcc -c 파일이름)
+2. ar명령어로 라이브러리파일 생성
+//ar r lib이름.a 추가할파일.o 추가할파일.o
+*라이브러리파일을 만들때는 관용적으로 앞에 lib 뒤에 .a를 붙임
+*라이브러리파일을 만들때는 tar쓰면안되고 ar써야함
+*파일을 추가하면서 생성해야함
+*파일 추가도 마찬가지로 ar r 라이브러리이름 추가할파일
+
+
+라이브러리이용한 컴파일
+
+1. 함수파일,main파일,헤더파일, 라이브러리 생성
+(함수파일,main파일 둘다 include 헤더파일해야됨)(헤더파일양식: extern void sayhello( );)
+2. 함수파일 gcc -c로 바이너리코드로 컴파일
+3. 라이브러리파일생성(ar명령어 ,바로 위에 만드는법참고)
+4. 라이브러리이용해서 컴파일 
+(gcc -o 만들파일이름, 컴파일할파일, -l라이브러리이름, -L라이브러리위치)
+(대문자i옵션 밑에 ex2참고)
+5. 실행해보기 ( ./실행파일이름)
+
+ex1)
+1. gcc -c myfunc.c	//함수파일 기계어코드로 컴파일 하기
+2. ar r libmylib.a myfunc.o	//컴파일된 .o파일을 아카이브파일libmylib.a에 추가하기
+3. ar t libmylib.a	//확인(생략해도됨)
+4. gcc -o say_hello hello.c -lmylib -L.
+//mylib아카이브에있는 myfunc함수를 이용해서 hello.c를 say_hello로 컴파일하기, myfunc.c는 mylib에 들어있는거임, say_hello실행파일만들어라, -L. 내가만든 라이브러리다
+
+ex2) 라이브러리와 헤더파일이 다른위치에 있는경우
+1. mkdir lib  //라이브러리들어갈 디렉토리
+2. mkdir include  //헤더파일 들어갈 디렉토리
+3. mv libmylib.a lib
+4. mv my.h include
+5. gcc -o sayhello hello.c -lmylib -Llib -Iinclude
+
+------------------------------------------------------------------------------------------
+make
+gcc매크로같은거라고 생각
+수정되거나, 없거나 필요한과정만 판단해서 작업해줌
+Makefile을 vi편집기로 만들어서 내용을만들고 명령어 make로 실행
+
+명령어
+make
+
+Makefile역할: 
+
+Makefile편집
+target: dependencies
+	recipe
+ex)
+vi Makefile
+
+app.out: main.o foo.o bar.o	//최종적으로 만들 실행파일과 그에 필요한 파일들
+	gcc -o app.out main.o foo.o bar.o	//맨앞에 tap키로 띄워야함
+main.o: foo.h bar.h main.c	//main.o를 만드는데 필요한 파일들
+	gcc -c foo.h bar.h main.c
+foo.o: foo.c
+	gcc -c foo.c
+bar.o: bar.c
+	gcc -c bar.c
+clean:			//make clean 치면 아래 명령어 실행
+	rm -f *.o app.out
+[main.c sub1.c sub2.c my.h 로 이루어진 파일과 이 프로그램 컴파일하는 Makefile만들기]
+
+*함수파일 touch로 시간건들고(수정) 다시 make실행했을때 일어나는 일
+*백업한후 이후 수정한 파일이 있을때 make파일을 사용하면 간편
