@@ -1,0 +1,77 @@
+자료구조 9/29
+두 희소행렬의 합을 저장하는 프로그램-과제_첨부파일참고
+
+희소 행렬의 합은 두 희소 행렬A와B의 합을 희소 행렬 C에 저장하는 것이다.
+
+#포인터연산
+int main(){
+  int a[5] = {0, 1, 2, 3, 4};
+  int *p;
+
+  p = &a[3];
+  printf("%d\n", *p);	// =3
+
+  printf("%d\n", *(p+1));	// =4
+}
+
+#동적 메모리 할당
+(int *)malloc(sizeof(int )) 		//주소를 리턴함
+
+int main(){
+  int *p;
+  p = (int *)malloc(3*sizeof(int ));	//포인터값만 주소를 받아올수 있음
+  *p = 10;	//=p[0] = 10;
+  *(p+1) = 20;	//=p[1] = 20;
+  *(p+2) = 30;	//=p[2] = 30;
+  printf("%d %d %d\n", p[0], p[1], p[2]);
+  free(p);
+  return 0;
+}
+
+구조체의 각 필드의 크기는 가장 저장사이즈가큰 필드값 기준으로 나머지도 똑같이 할당됨
+
+#STL
+-컨테이너
+ex) vector int v(3) : 3개의 정수를 저장하는 vector컨테이너_배열처럼 사용가능
+
+-반복자(Iterator)
+
+-시퀀스 컨테이너 (=vector 자료구조함수)
+?: 특정 위치값 삭제시 뒤에서 한칸씩 모두 당겨옴
+insert함수 : "	    삽입시 뒤의 값들은 한칸씩 모두 밀려남 
+
+-ex)
+#include <vector>
+using namespace std;
+
+int main(){
+  vector<int> v;	//v라는 int형자료구조 선언
+  vector<int> ::iterator p; //iterator활용, 포인터를 사용하는것, p는 이름
+
+  v.push_back(10);	//뒤에서부터 한칸씩 삽입, .pop_back은 삭제
+  v.push_back(20);
+  v.push_back(30)
+  v.push_back(40);
+  v.push_back(50);
+
+  v.pop_back();
+  v.pop_back();	//뒤에서부터 2개 삭제했으므로 10,20,30까지 남음
+
+  v.front() = 100;	//v[0] = 100; //처음 값
+  v.back() = 500;	//v[3] = 500; //마지막 값
+
+  for(int i=0; i < v.size(); i++)		//v.size() = 3
+    printf("%d\n", v[i]);
+/*				//iterator 활용
+  p = v.begin() + 2;		//포인터p의 주소입력
+  v.insert(p, 100);		//포인터p에 값 입력
+
+  for(p = v.begin(); p != v.end(); p++)	//iterator 활용
+    printf("%d\n", *p);
+*/
+  return 0;
+}
+
+vector<int> v(3); // vector배열 3칸={0,0,0} 선언
+v.push_back(10); //결과 {0,0,0,10}
+v[0] = 1; // v사이즈를 할당했으므로 가능

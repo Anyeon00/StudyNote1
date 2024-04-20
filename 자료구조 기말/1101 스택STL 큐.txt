@@ -1,0 +1,18 @@
+1101 자료구조
+
+스택 STL
+stack<int> st;
+
+st.push(10);
+st.push(20);
+st.push(30);
+st.push(40);
+st.push(50);
+
+while(!st.empty()){
+  printf("%d\n", st.top());
+  st.pop();
+}
+
+큐
+선입선출
