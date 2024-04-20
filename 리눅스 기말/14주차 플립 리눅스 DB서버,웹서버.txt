@@ -1,0 +1,67 @@
+14주차 리눅스 DB서버와 웹 서버
+
+APM(Apach Php Mysql)
+
+데이터베이스: 데이터를 한곳에 모아놓고 관리하는 것
+-관계형 데이터베이스_표(테이블)로 표현
+--필드: 테이블의 column
+--레코드,tuple : row
+--키: 필드에 들어가는 값(학생 열에 a, b, c 가 쭉들어가면 여기서 학생이 키)
+
+명령어:
+show databases; :기존 데이터베이스 목록 출력
+create database 데이터베이스명; : 새로운 데이터베이스를 생성
+drop database 데이터베이스명; : 데이터베이스 삭제
+use 데이터베이스명; : 사용할 데이터베이스 지정
+
+show tables; : 현재 데이터베이스에 있는 테이블 목록 출력
+create table 테이블명(필드명1, 필드명1의 자료형, 필드명2, 필드명2의 '',...);
+: 새로운 테이블 생성
+ex) create table st_info (ST_ID int, NAME varchar(20),...);
+
+explain 테이블명; : 지정한 테이블의 구조 출력
+alter table 테이블명수정명령;
+ex) alter table add 필드명 자료형; : 필드추가
+alter table modify 필드명 자료형; : 필드의 자료형 변경
+'' '' drop column 필드명; : 필드삭제
+drop table 테이블명; : 테이블삭제
+
+insert into 테이블명 values (값1, 값2, ...); : 레코드삽입
+update 테이블명 set 필드명1=수정할값1, 필드명2=수정할값2, ... where 조건;
+: 레코드수정, 조건_필드가 어딘지
+ex) update st_info set DEPT='Computer' where ST_ID=201403;
+delete from 테이블명 where 조건; : 레코드삭제
+
+select 필드명1, 필드명2, ... from 테이블명 where 조건; : 레코드검색하기
+ex) select * from st_info; //모든것 다 출력
+
+접근권한 부여하기: ...
+
+---------------------------------------------------------------------------------
+실습
+
+mariadb(mysql)설치
+apach 설치
+
+웹서버 기본디렉터리는 /var/www/html
+vi로 작성하여 index.html로 저장
+->
+cd /var/www/html
+vi index.html
+// html로 페이지 작성
+vi /etc/httpd/conf.d/userdir.conf에서
+UserDir disabled 앞에 #추가
+UserDir public_html 앞에 #삭제
+systemctl restart httpd.service
+유저로 이동
+홈디렉토리에 public_html 디렉토리생성
+디렉토리 접근권한조정(chmod 701 .; chmod 701 public_html)
+public_html 디렉토리아래에 index.html파일생성
+
+php 설치
+
+http,뭐 restart
+
+그누보드 설치시 책따라하지말고 동영상보고하기
+
+*페도라 내폴더-다운로드

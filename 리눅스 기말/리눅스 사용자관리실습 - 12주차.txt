@@ -1,0 +1,18 @@
+리눅스 사용자관리실습
+
+유저 둘, 그룹하나 생성 후 한 유저에서 만든 파일을 다른 유저로 접근해 수정해보기
+
+1. 유저 aaa,bbb 그룹 team 생성후 team에 넣기
+2. aaa에서 파일생성 후 파일의 소유그룹 team으로 변경
+3. group쓰기권한추가
+4. 사용자 bbb가 aaa의 파일을 실행할 때, aaa디렉토리를 경유하기 위해 root에서 /home/aaa의 group실행권한 추가, 소유그룹 team으로 변경
+5. bbb에서 현재그룹을 team으로 변경
+6. vi로 aaa파일 실행
+---------------------------------------------------------------
+1. adduser aaa; passwd aaa; adduser bbb; passwd bbb;
+groupadd team; gpasswd team -a aaa; gpasswd team -a bbb;
+2. vi file1; chown aaa:team file1
+3. chmod g+w file1
+4. chmod g+x /home/aaa; chown aaa:team /home/aaa	//root에서 실행
+5. newgrp team		//bbb에서 실행
+6. vi ../aaa/file1
