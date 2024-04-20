@@ -1,0 +1,51 @@
+13주차 플립 고급c
+
+bitwise operation	[비트와이즈, function pointer, continue 시험안나옴]
+
+and: x
+or : +
+xor : 같으면 0, 다르면 1
+not : 반대
+===============================
+구조체
+
+struct point {
+  int x;
+  int y;
+};
+/* typedef struct point{
+     int x;
+     int y;
+} Point; */		//typedef를 이용한 정의
+/* typedef struct point{} Point, * PointPtr;*/	//Point를 가리키는 포인터를 PointPtr로 사용하겠다는 내용까지 포함
+
+struct point c;	
+struct point b;
+/*Point c;		
+Point b;*/		//typedef를 이용한 선언
+
+c.x = 10;
+b.x = 20;
+-------------------------------
+void f(struct point* p, struct point q){
+  p -> x = q.x;	//그냥은 q.x로, 포인터통해서는 p -> x(포인터 p가 가리키는 x) 로 access
+}	
+/* void f(Point* p, Point q){} */	//typedef를 이용한 function signature
+f(&c, b);	//parameter passing(기본적으로 call by value, 일반적으로 call by reference로 처리)(&c.x 도 가능)
+/* void f(PointPtr p, Point q){}*/	
+
+============================================
+구조체 dynamic alloaction
+
+Point *pa = (Point *)malloc(sizeof(Point));
+
+f(pa);	//포인터변수이므로 &붙이면 포인터변수의 주소이므로 주의
+
+
+구조체 배열
+Point pt[3];
+pt[0].x =10;
+/* Point *pt;
+
+
+

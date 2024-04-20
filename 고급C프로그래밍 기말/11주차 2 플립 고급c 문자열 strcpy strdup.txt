@@ -1,0 +1,89 @@
+11주차 2 플립 고급C 문자열
+
+character array
+char x[10];
+반드시 문자열 마지막에 \0(null character) 저장 필수(마지막을 지정해줘야함)
+따라서 위 문자열에선 9칸 사용가능
+
+ASCHI코드값을 저장
+
+문자 상수: 'a'	
+//문자열 배열 char[ ]는 문자 상수가 저장됨
+문자열 상수 : "kim" "lee"	
+// *x = "kim" 는 문자열 상수가 저장됨
+*문자열 상수는 뒤에 null character이 들어감
+*****문자 상수는 local variable이라 stack area에, 문자열 상수는 static area의 constant poo에 들어감_readonly (문자 상수는 char = 'a', char[ ] 로 선언, 문자열 상수는 char * = "~"로 선언하거나_당연히동적할당제외 actualparameter에 "~"로 입력할때)*****
+
+ex1)
+char x[10];
+x[0] = 'k';
+x[1] = 'i';
+x[2] = 'm';
+x[3] = '\0';
+
+ex2)
+char *p = "kim";	//static영역에 readonly로 생성됨, stack area의 *p가 static area의 k,i,m,\0 배열을 가리킴	//포인터변수에 배열넣는거 int*는 안됨
+
+ex3)
+char x[10] = "kim";	  //local variable에 저장됨
+
+ex4)
+char x[10];
+strcpy(x,"kim");	//제일 정상적인 사용방법(strdup랑)
+
+parameter passing
+formal parameter
+int my_strlen(char *s){
+  int n;
+  for(n = 0; *s != '\0\; s++){
+    n++;
+  }
+}
+actual parameter
+my_strlen(x);	//x는 배열의 시작위치를 넘겨줌, &x[0]
+
+*strlen 다른방법
+int my_strlen(char *s){
+  char *p = s;
+  while(*p != '\0') p++;
+  return (p-s);	//포인터연산, 주소값끼리 계산해서 길이를 구함
+}
+
+요약: 문자상수는 stack area, 문자열 상수는 static area에 readonly로 들어감-strcpy시 runtime error, parameter passing에서 integer array같이 시작주소 넘겨주고, 포인터변수로 받음
+
+-> 항상 문자열 선언시 포인터(constant pool)에 선언됐는지, array(stack)에 선언됐는지 확인_포인터에 array로 동적할당된경우 stack에 해당
+
+#include <string.h>
+strlen(char*) //string length, null character을 제외한 논리적인 길이만 return,한글은 2byte이므로 2씩 계산됨
+strcpy(char*,char*) //string copy
+strcmp(char*,char*) //string compare, 첫번째 index부터 아스키코드값 비교, 앞 문자열이 크면 >0
+strcat(char*,char*) //string 연결
+strdup(char*) //heap영역에 기억장소 할당후 복사, 기존에 이미 기억장소의 크기가 할당되어있으므로 제한되어있는데 동적으로 할당후 제한과 상관없이 사용가능, 리턴타입은 char* (char* p = malloc하고  return p 해주기 때문)
+
+<strcpy>
+ex1)
+char *x = "kim";
+char y[10];
+strcpy(y, x);
+
+ex2)
+strcpy(y, "kim");
+*주의점: 넉넉하고 readwrite가 가능한 기억장소가 확보되어있어야함
+
+<strcmp>
+ex1)
+if ("Kwon" > "kim"){
+  printf("Kwon\n");
+} else {
+  printf(Kim\n");
+}
+이렇게 문자열 상수끼리 비교하면 주소값으로 비교함
+따라서 아래처럼
+if (strcmp("Kwon","Kim") > 0) 이렇게 사용
+*앞이 크면 0보다 큰값, 뒤가 크면 음수
+
+<strcat>
+
+<strdup>
+char *p;
+p = strdup("kim");

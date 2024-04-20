@@ -1,0 +1,47 @@
+12주차 2 플립 고급C 문자열배열, enum-union
+
+문자열 배열(string array)		->시험
+사용 목적: 출석부, 고객명단, 메뉴
+
+자동할당 방식(overflow, 메모리낭비)
+ex1) char names[5][10];	//끝에 1자린 null charater이므로 9칸 사용가능
+strcpy(names[0],"kim");	//constant pool에 들어간 "kim"이 names[0]에 copy, 2차원배열에서 1차원배열(names[0])을 쓰면 시작주소를 의미_c문법
+//names[0] = &names[0][0]
+메모리상 1차원배열의 나열형태
+
+ex2) char* names[5];
+names[0] = "kim";
+메모리상 각포인터가 constant pool의 데이터를 가리킴
+
+동적할당 방식
+1. 포인터의 array
+ex)
+ char *name[5];
+ name[0] = "kim";		//name[0]은 포인터를 의미
+
+-------------------------------------------------------------------------------
+enum union
+
+typedef 비실행문(컴파일러가 처리)
+: readability(가독성)향상
+ex)
+typedef int money;
+money x = 1; //int x = 1;
+
+열거형_enum(매크로(#define Mon (0)) 여러개를 한번에 정의)(_0123..순서대로)
+: readability 향상
+ex1)enum { Sun, Mon, ..};
+ex2) typedef enum {Sun, Mon,..} Day
+Day a;
+a = Sun;
+
+union
+:기억장소 절약
+ex)
+typoedef union{
+  int money;
+  double gold;
+} Salary;
+Salary s[10];
+s[0].money = 100;
+s[1].gold = 105;
